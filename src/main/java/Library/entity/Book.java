@@ -1,6 +1,7 @@
 package Library.entity;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -18,8 +19,10 @@ public class Book {
     private List<Author> author;
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String genre;
+
     @Column(nullable = false)
     private Integer releaseDate;
     @OneToOne
@@ -44,6 +47,10 @@ public class Book {
         this.title = title;
         this.genre = genre;
         this.releaseDate = releaseDate;
+    }
+
+    public Book() {
+
     }
 
     public UUID getId() {
