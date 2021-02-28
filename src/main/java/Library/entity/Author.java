@@ -1,5 +1,4 @@
 package Library.entity;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +10,7 @@ public class Author {
 
     @Id
     @GeneratedValue
-    private UUID uuid;
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -22,12 +21,17 @@ public class Author {
     @OneToMany
     private List<Book> book;
 
-    public UUID getUuid() {
-        return uuid;
+    public Author(String name, String surname, Book book) {
+        this.name = name;
+        this.surname = surname;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,12 +58,12 @@ public class Author {
         this.book = book;
     }
 
+
     @Override
     public String toString() {
         return "Author{" +
                "name='" + name + '\'' +
                ", surname='" + surname + '\'' +
-               ", book=" + book +
-               '}';
+                '}';
     }
 }

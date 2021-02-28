@@ -1,11 +1,8 @@
 package Library;
 
-import Library.repository.ReaderRepository;
-import Library.repository.ReservationRepository;
+
 import Library.entity.*;
-import Library.repository.AuthorRepository;
-import Library.repository.BookRepository;
-import Library.repository.BookBorrowingRepository;
+import Library.repository.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -18,7 +15,6 @@ public class Project {
     private final ReaderRepository readerRepository;
     private final ReservationRepository reservationRepository;
     private final BookBorrowingRepository bookBorrowingRepository;
-
 
 
     public Project() {
@@ -45,7 +41,10 @@ public class Project {
     }
 
 
-    public void run() {}
-    private void print(){}
+    public void run() {
+    }
+
+    private void print() {
+    }
 
 }

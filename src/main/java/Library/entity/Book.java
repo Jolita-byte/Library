@@ -13,8 +13,9 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private UUID uuid;
-    @ManyToOne
+    private UUID id;
+
+    @OneToOne
     private Author author;
     @Column(nullable = false)
     private String title;
@@ -46,12 +47,12 @@ public class Book {
         this.releaseDate = releaseDate;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Author getAuthor() {

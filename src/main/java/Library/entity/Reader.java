@@ -1,6 +1,11 @@
 package Library.entity;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "readers")
 public class Reader {
+
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                     .withLocale(Locale.forLanguageTag("LT"))
