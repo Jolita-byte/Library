@@ -1,7 +1,7 @@
 package Library.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -24,14 +24,20 @@ public class BookBorrowing {
     @OneToOne
     private Book book;
     @Column (nullable = false)
-    private Instant startTerm;
-    @Column (nullable = false)
-    private Instant endTerm;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate startTerm;
+
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate endTerm;
     @ManyToOne
     private Reader reader;
     private String comment;
 
-    public BookBorrowing(Book book, Instant startTerm, Reader reader) {
+    public BookBorrowing(Book book, LocalDate startTerm, Reader reader) {
 
         this.book = book;
         this.startTerm = startTerm;
@@ -55,19 +61,19 @@ public class BookBorrowing {
         this.book = book;
     }
 
-    public Instant getStartTerm() {
+    public LocalDate getStartTerm() {
         return startTerm;
     }
 
-    public void setStartTerm(Instant startTerm) {
+    public void setStartTerm(LocalDate startTerm) {
         this.startTerm = startTerm;
     }
 
-    public Instant getEndTerm() {
+    public LocalDate getEndTerm() {
         return endTerm;
     }
 
-    public void setEndTerm(Instant endTerm) {
+    public void setEndTerm(LocalDate endTerm) {
         this.endTerm = endTerm;
     }
 
@@ -92,8 +98,8 @@ public class BookBorrowing {
         return "BookBorrowing{" +
                 "id=" + id +
                 ", book=" + book +
-                ", startTerm=" + FORMATTER.format(startTerm)+ '\'' +
-                ", endTerm=" + FORMATTER.format(endTerm) + '\'' +
+                ", startTerm=" + startTerm + '\'' +
+                ", endTerm=" + endTerm + '\'' +
                 ", comment='" + comment + '\'' +
                 ", reader=" + reader +
                 '}';

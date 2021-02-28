@@ -1,12 +1,8 @@
 package Library.entity;
 
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -35,13 +31,16 @@ public class Reader {
     @Column(nullable = false)
     private String phoneNumber;
     @Column(nullable = false)
-    private Instant activeSince;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate activeSince;
     @OneToMany
     private List<Reservation> reservation;
     @OneToMany
     private List<BookBorrowing> bookBorrowings;
 
-    public Reader(String name, String surname, String email, String phoneNumber, Instant activeSince) {
+    public Reader(String name, String surname, String email, String phoneNumber, LocalDate activeSince) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -89,11 +88,11 @@ public class Reader {
         this.phoneNumber = phoneNumber;
     }
 
-    public Instant getActiveSince() {
+    public LocalDate getActiveSince() {
         return activeSince;
     }
 
-    public void setActiveSince(Instant activeSince) {
+    public void setActiveSince(LocalDate activeSince) {
         this.activeSince = activeSince;
     }
 
@@ -121,7 +120,7 @@ public class Reader {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", active since = " + FORMATTER.format(activeSince) + '\'' +
+                ", active since = " + activeSince + '\'' +
                 ", reservation=" + reservation +
                 ", bookBorrowings=" + bookBorrowings +
                 '}';

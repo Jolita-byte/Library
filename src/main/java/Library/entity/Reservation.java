@@ -1,7 +1,7 @@
 package Library.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -29,12 +29,18 @@ public class Reservation {
     private Reader reader;
 
     @Column(nullable = false)
-    private Instant beginDate;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate beginDate;
 
     @Column(nullable = false)
-    private Instant endDate;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate endDate;
 
-    public Reservation(Book book, Reader reader, Instant beginDate) {
+    public Reservation(Book book, Reader reader, LocalDate beginDate) {
         this.book = book;
         this.reader = reader;
         this.beginDate = beginDate;
@@ -65,19 +71,19 @@ public class Reservation {
         this.reader = reader;
     }
 
-    public Instant getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Instant beginDate) {
+    public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
 
-    public Instant getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Instant endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
