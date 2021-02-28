@@ -17,12 +17,16 @@ public class Book {
 
     @OneToOne
     private Author author;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String genre;
+
     @Column(nullable = false)
-    private Instant releaseDate;
+    private Integer releaseDate;;
+
     @OneToOne
     private BookBorrowing bookBorrowing;
     @OneToOne
@@ -40,11 +44,15 @@ public class Book {
                     .withLocale(Locale.forLanguageTag("LT"))
                     .withZone(ZoneId.systemDefault());
 
-    public Book(Author author, String title, String genre, Instant releaseDate) {
+    public Book(Author author, String title, String genre, Integer releaseDate) {
         this.author = author;
         this.title = title;
         this.genre = genre;
         this.releaseDate = releaseDate;
+    }
+
+    public Book() {
+
     }
 
     public UUID getId() {
@@ -79,11 +87,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public Instant getReleaseDate() {
+    public Integer getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Instant releaseDate) {
+    public void setReleaseDate(Integer releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -106,11 +114,11 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "uuid=" + uuid +
+                "uuid=" + id +
                 ", author=" + author +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
-                ", releaseDate=" + FORMATTER.format(releaseDate)  +
+                ", releaseDate=" + releaseDate  +
                 ", bookBorrowing=" + bookBorrowing +
                 ", reservation=" + reservation +
                 '}';
