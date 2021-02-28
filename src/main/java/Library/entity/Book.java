@@ -11,22 +11,27 @@ import java.util.*;
 @Table(name = "books")
 public class Book {
 
+    @Id
+    @GeneratedValue
     private UUID uuid;
     @ManyToOne
     private Author author;
-
     @Column(nullable = false)
     private String title;
-
+    @Column(nullable = false)
     private String genre;
-
     @Column(nullable = false)
     private Instant releaseDate;
+    @OneToOne
+    private BookBorrowing bookBorrowing;
+    @OneToOne
+    private Reservation reservation;
+
 
   //  private String language;
-    //  private String publishingHouse;
+  //  private String publishingHouse;
   //  private Integer numberOfPages;
- //   private String format;
+  //  private String format;
 
 
     private static final DateTimeFormatter FORMATTER =
@@ -81,14 +86,33 @@ public class Book {
         this.releaseDate = releaseDate;
     }
 
+    public BookBorrowing getBookBorrowing() {
+        return bookBorrowing;
+    }
+
+    public void setBookBorrowing(BookBorrowing bookBorrowing) {
+        this.bookBorrowing = bookBorrowing;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
-               "author=" + author +
-               ", title='" + title + '\'' +
-               ", genre='" + genre + '\'' +
-               ", releaseDate=" + FORMATTER.format(releaseDate)  +
-               '}';
+                "uuid=" + uuid +
+                ", author=" + author +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", releaseDate=" + FORMATTER.format(releaseDate)  +
+                ", bookBorrowing=" + bookBorrowing +
+                ", reservation=" + reservation +
+                '}';
     }
 }
 

@@ -1,15 +1,16 @@
 package Library.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 
 @Entity
 @Table(name = "authors")
 public class Author {
+
+    @Id
+    @GeneratedValue
     private UUID uuid;
 
     @Column(nullable = false)
@@ -19,9 +20,7 @@ public class Author {
     private String surname;
 
     @OneToMany
-    private Book book;
-
-
+    private List<Book> book;
 
     public UUID getUuid() {
         return uuid;
@@ -47,11 +46,11 @@ public class Author {
         this.surname = surname;
     }
 
-    public Book getBook() {
+    public List<Book> getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(List<Book> book) {
         this.book = book;
     }
 

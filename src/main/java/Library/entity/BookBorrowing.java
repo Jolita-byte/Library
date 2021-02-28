@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -20,22 +21,22 @@ public class BookBorrowing {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(nullable = false)
     @OneToOne
     private Book book;
     @Column (nullable = false)
     private Instant startTerm;
     @Column (nullable = false)
     private Instant endTerm;
+    @ManyToOne
+    private Reader reader;
     private String comment;
 
-    public BookBorrowing(UUID id, Book book, Instant startTerm, Instant  endTerm, String comment) {
-        this.id = id;
+    public BookBorrowing(Book book, Instant startTerm, Reader reader) {
 
         this.book = book;
         this.startTerm = startTerm;
-        this.endTerm = endTerm;
-        this.comment = comment;
+        this.endTerm = startTerm.plus(30, ChronoUnit.DAYS);
+        this.reader = reader;
     }
 
     public UUID getId() {
@@ -46,11 +47,11 @@ public class BookBorrowing {
         this.id = id;
     }
 
-    public Book book() {
+    public Book getBook() {
         return book;
     }
 
-    public void setName(Book book) {
+    public void setBook(Book book) {
         this.book = book;
     }
 
@@ -70,6 +71,14 @@ public class BookBorrowing {
         this.endTerm = endTerm;
     }
 
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
+    }
+
     public String getComment() {
         return comment;
     }
@@ -82,10 +91,11 @@ public class BookBorrowing {
     public String toString() {
         return "BookBorrowing{" +
                 "id=" + id +
-                ", book='" + book + '\'' +
-                ", startTerm=" + FORMATTER.format(startTerm)+
-                ", endTerm=" + endTerm +
+                ", book=" + book +
+                ", startTerm=" + FORMATTER.format(startTerm)+ '\'' +
+                ", endTerm=" + FORMATTER.format(endTerm) + '\'' +
                 ", comment='" + comment + '\'' +
+                ", reader=" + reader +
                 '}';
     }
 }
