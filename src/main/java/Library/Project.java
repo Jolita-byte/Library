@@ -80,6 +80,7 @@ public class Project {
 //        System.out.println(bookRepository.findAll());
 
       bookRepository.findBookByAuthor(authorLindgren);
+      bookRepository.findBookByTitle(bookPepe);
 
 
     }
