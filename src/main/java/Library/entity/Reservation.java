@@ -2,16 +2,27 @@ package Library.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.UUID;
 
 @Entity
 @Table(name = "reservations")
 public class Reservation {
+
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                    .withLocale(Locale.forLanguageTag("LT"))
+                    .withZone(ZoneId.systemDefault());
+
     @Id
     @GeneratedValue()
     private UUID id;
 
-    @ManyToOne
+    @OneToOne
     private Book book;
 
     @ManyToOne
@@ -23,12 +34,11 @@ public class Reservation {
     @Column(nullable = false)
     private Instant endDate;
 
-    public Reservation(UUID id, Book book, Reader reader, Instant beginDate, Instant endDate) {
-        this.id = id;
+    public Reservation(Book book, Reader reader, Instant beginDate) {
         this.book = book;
         this.reader = reader;
         this.beginDate = beginDate;
-        this.endDate = endDate;
+        this.endDate = beginDate.plus(3, ChronoUnit.DAYS);
     }
 
     public UUID getId() {
@@ -69,5 +79,16 @@ public class Reservation {
 
     public void setEndDate(Instant endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", book=" + book +
+                ", reader=" + reader +
+                ", beginDate=" + FORMATTER.format(beginDate) +
+                ", endDate=" + FORMATTER.format(endDate)+
+                '}';
     }
 }

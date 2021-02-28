@@ -1,6 +1,6 @@
 package Library.entity;
-
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -18,7 +18,8 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
-
+    @OneToMany
+    private List<Book> book;
 
     public Author(String name, String surname, Book book) {
         this.name = name;
@@ -49,6 +50,13 @@ public class Author {
         this.surname = surname;
     }
 
+    public List<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(List<Book> book) {
+        this.book = book;
+    }
 
 
     @Override

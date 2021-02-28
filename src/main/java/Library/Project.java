@@ -34,6 +34,10 @@ public class Project {
         readerRepository = new ReaderRepository(entityManager);
         reservationRepository = new ReservationRepository(entityManager);
         bookBorrowingRepository = new BookBorrowingRepository(entityManager);
+
+
+
+
     }
 
 

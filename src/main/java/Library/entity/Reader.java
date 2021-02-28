@@ -1,24 +1,53 @@
 package Library.entity;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
+
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Entity
 @Table(name = "readers")
-
 public class Reader {
+
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                    .withLocale(Locale.forLanguageTag("LT"))
+                    .withZone(ZoneId.systemDefault());
+
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private UUID id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String phoneNumber;
+    @Column(nullable = false)
     private Instant activeSince;
+    @OneToMany
+    private List<Reservation> reservation;
+    @OneToMany
+    private List<BookBorrowing> bookBorrowings;
+
+    public Reader(String name, String surname, String email, String phoneNumber, Instant activeSince) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.activeSince = activeSince;
+    }
 
     public UUID getId() {
         return id;
@@ -68,16 +97,36 @@ public class Reader {
         this.activeSince = activeSince;
     }
 
+    public List<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(List<Reservation> reservation) {
+        this.reservation = reservation;
+    }
+
+    public List<BookBorrowing> getBookBorrowings() {
+        return bookBorrowings;
+    }
+
+    public void setBookBorrowings(List<BookBorrowing> bookBorrowings) {
+        this.bookBorrowings = bookBorrowings;
+    }
+
+    @Override
     public String toString() {
         return "Reader{" +
                 "id=" + id +
-                ", name = " + name +
-                ", surname = " + surname +
-                ", email = " + email +
-                ", phone number = " + phoneNumber +
-                ", active since = " + activeSince +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", active since = " + FORMATTER.format(activeSince) + '\'' +
+                ", reservation=" + reservation +
+                ", bookBorrowings=" + bookBorrowings +
                 '}';
     }
-
 }
+
+
 
