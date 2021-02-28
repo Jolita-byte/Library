@@ -1,5 +1,7 @@
 package Library.repository;
 
+import Library.entity.Author;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -18,7 +20,7 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
         return entityManager.find(entityClass, id);
     }
 
-    @Override
+     @Override
     public void save(T entity) {
         EntityTransaction transaction = entityManager.getTransaction();
         boolean isTransactionActive = transaction.isActive();
