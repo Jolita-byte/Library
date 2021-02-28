@@ -1,4 +1,4 @@
-package Library.repository;
+package Library.repository.Reservation;
 
 import Library.entity.Reservation;
 

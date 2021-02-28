@@ -1,7 +1,6 @@
 package Library.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -15,14 +14,14 @@ public class Book {
     @GeneratedValue
     private UUID id;
 
-    @OneToOne
-    private Author author;
+    @ManyToMany
+    private List<Author> author;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
     private String genre;
     @Column(nullable = false)
-    private Instant releaseDate;
+    private Integer releaseDate;
     @OneToOne
     private BookBorrowing bookBorrowing;
     @OneToOne
@@ -40,7 +39,7 @@ public class Book {
                     .withLocale(Locale.forLanguageTag("LT"))
                     .withZone(ZoneId.systemDefault());
 
-    public Book(Author author, String title, String genre, Instant releaseDate) {
+    public Book(List<Author> author, String title, String genre, Integer releaseDate) {
         this.author = author;
         this.title = title;
         this.genre = genre;
@@ -55,11 +54,11 @@ public class Book {
         this.id = id;
     }
 
-    public Author getAuthor() {
+    public List<Author> getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(List<Author> author) {
         this.author = author;
     }
 
@@ -79,11 +78,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public Instant getReleaseDate() {
+    public Integer getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Instant releaseDate) {
+    public void setReleaseDate(Integer releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -106,11 +105,11 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "uuid=" + uuid +
+                "uuid=" + id +
                 ", author=" + author +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
-                ", releaseDate=" + FORMATTER.format(releaseDate)  +
+                ", releaseDate=" + releaseDate +
                 ", bookBorrowing=" + bookBorrowing +
                 ", reservation=" + reservation +
                 '}';

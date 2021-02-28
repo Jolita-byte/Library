@@ -1,6 +1,7 @@
-package Library.repository;
+package Library.repository.Author;
 
 import Library.entity.Author;
+import Library.repository.AbstractRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;

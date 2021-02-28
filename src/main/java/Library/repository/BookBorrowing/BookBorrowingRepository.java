@@ -1,6 +1,7 @@
-package Library.repository;
+package Library.repository.BookBorrowing;
 
 import Library.entity.BookBorrowing;
+import Library.repository.AbstractRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;

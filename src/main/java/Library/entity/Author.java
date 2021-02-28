@@ -18,10 +18,10 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
-    @OneToMany
+    @ManyToMany
     private List<Book> book;
 
-    public Author(String name, String surname, Book book) {
+    public Author(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
