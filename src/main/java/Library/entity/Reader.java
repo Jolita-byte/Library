@@ -1,6 +1,8 @@
 package Library.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
@@ -9,6 +11,8 @@ import java.util.UUID;
 @Table(name = "readers")
 
 public class Reader {
+    @Id
+    @GeneratedValue
     private UUID id;
     private String name;
     private String surname;

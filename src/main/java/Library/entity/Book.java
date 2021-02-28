@@ -11,8 +11,11 @@ import java.util.*;
 @Table(name = "books")
 public class Book {
 
-    private UUID uuid;
-    @ManyToOne
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @OneToOne
     private Author author;
 
     @Column(nullable = false)
@@ -41,12 +44,12 @@ public class Book {
         this.releaseDate = releaseDate;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Author getAuthor() {
