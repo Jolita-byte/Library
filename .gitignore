@@ -1,4 +1,3 @@
-*.iml
 target/
 *.db
 # Compiled class file
