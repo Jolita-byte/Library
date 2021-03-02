@@ -11,12 +11,25 @@ import java.util.*;
 @Table(name = "books")
 public class Book {
 
+    public Book(Author author, String title, String genre, Integer releaseDate) {
+//        this.authors.add(author);
+        this.author = author;
+        this.title = title;
+        this.genre = genre;
+        this.releaseDate = releaseDate;
+
+    }
+
+
     @Id
     @GeneratedValue
     private UUID id;
 
-    @ManyToMany
-    private List<Author> author;
+//    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<Author> authors = new ArrayList<>();
+    @OneToOne
+    private Author author;
+
     @Column(nullable = false)
     private String title;
 
@@ -31,6 +44,11 @@ public class Book {
     private Reservation reservation;
 
 
+//   public void addAuthor(Author author){
+//       authors.add(author);
+//   }
+
+
   //  private String language;
   //  private String publishingHouse;
   //  private Integer numberOfPages;
@@ -42,12 +60,7 @@ public class Book {
                     .withLocale(Locale.forLanguageTag("LT"))
                     .withZone(ZoneId.systemDefault());
 
-    public Book(List<Author> author, String title, String genre, Integer releaseDate) {
-        this.author = author;
-        this.title = title;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-    }
+
 
     public Book() {
 
@@ -61,11 +74,11 @@ public class Book {
         this.id = id;
     }
 
-    public List<Author> getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(List<Author> author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

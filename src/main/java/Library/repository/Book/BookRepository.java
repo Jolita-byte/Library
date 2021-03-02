@@ -36,17 +36,16 @@ public class BookRepository extends AbstractRepository<Book,UUID> {
     }
 
 
-
     public Book find(Author author) {
         return entityManager.find(Book.class, author);
     }
 
 
-    public List<Book> findBookByAuthor(Author author) {
-       Query query = entityManager.createQuery("FROM Book WHERE author = :author", Book.class);
-                   query.setParameter("author", author);
-                   return query.getResultList();
-    }
+//    public List<Book> findBookByAuthor(Author author) {
+//       Query query = entityManager.createQuery("FROM Book WHERE authors = :author", Book.class);
+//                   query.setParameter("author", author);
+//                   return query.getResultList();
+//    }
 
 
 }
