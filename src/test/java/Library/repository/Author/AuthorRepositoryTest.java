@@ -25,8 +25,8 @@ class AuthorRepositoryTest {
     @Mock
     private Transaction transaction;
 
-    @Mock
-    Query query;
+    //@Mock
+   // Query query;
 
     @Mock
     private Author author;
@@ -43,7 +43,7 @@ class AuthorRepositoryTest {
         then(entityManager).should().persist(author);
     }
 
-    @Test
+ /*   @Test
     public void findAllAuthors(){
         query = Mockito.mock(Query.class);
         authorRepository.findAll();
@@ -51,7 +51,7 @@ class AuthorRepositoryTest {
         then(entityManager).should().createQuery(query.toString(), Author.class).getResultList();
     }
 
-    public void findAuthorbyGivenID(){}
+    public void findAuthorbyGivenID(){}*/
 
 
 /*    @Test
