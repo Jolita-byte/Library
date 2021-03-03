@@ -2,12 +2,13 @@ package Library;
 
 
 import Library.entity.*;
-import Library.repository.*;
 import Library.repository.Author.AuthorRepository;
 import Library.repository.Book.BookRepository;
 import Library.repository.BookBorrowing.BookBorrowingRepository;
 import Library.repository.Reader.ReaderRepository;
 import Library.repository.Reservation.ReservationRepository;
+import Library.service.AuthorService;
+import Library.service.BookService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -46,11 +47,14 @@ public class Project {
         LocalDate date1 = LocalDate.of(2021, 02,05);
         date1.plusDays(10);
 
+        AuthorService authorService = new AuthorService(new AuthorRepository(entityManager));
+        BookService bookService = new BookService(new BookRepository(entityManager), authorService);
+
     }
     public void run() {
 
-//        Author author1 = new Author("Levas", "Tolstojus");
-//        Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
+     //Author author1 = new Author("Levas", "Tolstojus");
+   //    Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
 //
 //        Author author2 = new Author("Džeromas Deividass", "Selindžeris");
 //        Book book2 = new Book(author2, "Rugiuose prie bedugnės", "Romanas", 1951);
@@ -60,12 +64,12 @@ public class Project {
 //
 //        Author author4 = new Author("Katherine", " Paterson");
 //        Book book4 = new Book(author4, "Tiltas į terabitiją", "Romanas", 2018);
+
+       Author authorMan = new Author("Tomas","Manas");
+        authorRepository.save(authorMan);
 //
-//        Author authorMan = new Author("Tomas","Manas");
-//        authorRepository.save(authorMan);
-//
-//        Book bookKazkoks = new Book(authorMan, "Kazkoks","mistika", 1912);
-//        bookRepository.save(bookKazkoks);
+  //     Book bookKazkoks = new Book(authorMan, "Kazkoks","mistika", 1912);
+ //      bookRepository.save(bookKazkoks);
 //
 //        Author authorLindgren = new Author("Astrid","Lindgren");
 //        authorRepository.save(authorLindgren);

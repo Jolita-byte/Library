@@ -15,8 +15,9 @@ public class Book {
     @GeneratedValue
     private UUID id;
 
-    @ManyToMany
-    private List<Author> author;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Author> authors = new ArrayList<>();
+
     @Column(nullable = false)
     private String title;
 
@@ -25,8 +26,10 @@ public class Book {
 
     @Column(nullable = false)
     private Integer releaseDate;
+
     @OneToOne
     private BookBorrowing bookBorrowing;
+
     @OneToOne
     private Reservation reservation;
 
@@ -37,16 +40,21 @@ public class Book {
   //  private String format;
 
 
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                    .withLocale(Locale.forLanguageTag("LT"))
-                    .withZone(ZoneId.systemDefault());
+//    private static final DateTimeFormatter FORMATTER =
+//            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+//                    .withLocale(Locale.forLanguageTag("LT"))
+//                    .withZone(ZoneId.systemDefault());
 
-    public Book(List<Author> author, String title, String genre, Integer releaseDate) {
-        this.author = author;
+    public Book(List<Author> authors, String title, String genre, Integer releaseDate) {
+        this.authors = authors;
         this.title = title;
         this.genre = genre;
         this.releaseDate = releaseDate;
+    }
+
+    public Book(List<Author> authors, String title) {
+        this.authors = authors;
+        this.title = title;
     }
 
     public Book() {
@@ -61,12 +69,12 @@ public class Book {
         this.id = id;
     }
 
-    public List<Author> getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(List<Author> author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public String getTitle() {
@@ -113,7 +121,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "uuid=" + id +
-                ", author=" + author +
+                ", author=" + authors +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", releaseDate=" + releaseDate +

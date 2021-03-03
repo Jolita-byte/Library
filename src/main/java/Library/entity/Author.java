@@ -1,7 +1,6 @@
 package Library.entity;
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -18,8 +17,8 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
-    @ManyToMany
-    private List<Book> book;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Book> books = new ArrayList<>();
 
     public Author(String name, String surname) {
         this.name = name;
@@ -50,18 +49,19 @@ public class Author {
         this.surname = surname;
     }
 
-    public List<Book> getBook() {
-        return book;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setBook(List<Book> book) {
-        this.book = book;
+    public void setBook(List<Book> books) {
+        this.books = books;
     }
 
 
     @Override
     public String toString() {
         return "Author{" +
+               "id" + id +":" +
                "name='" + name + '\'' +
                ", surname='" + surname + '\'' +
                 '}';
