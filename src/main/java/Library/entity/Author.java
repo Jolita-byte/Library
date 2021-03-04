@@ -1,5 +1,6 @@
 package Library.entity;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class Author {
     private String surname;
 
     @ManyToMany
-    private List<Book> book;
+    private List<Book> book = new ArrayList<>();
 
     public Author(String name, String surname) {
         this.name = name;

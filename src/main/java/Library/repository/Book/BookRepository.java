@@ -23,22 +23,12 @@ public class BookRepository extends AbstractRepository<Book,UUID> {
         return entityManager.createQuery("FROM Book", Book.class).getResultList();
     }
 
-
-
-    public Book findTitle(Book title) {
-        return entityManager.find(Book.class, title);
-    }
-
-    public List<Book> findBookByTitle(Book title) {
-        Query query = entityManager.createQuery("FROM Book WHERE title = :title", Book.class);
-        query.setParameter("title", title);
+    public List<Book> searchByNameFragment(String fragment) {
+        Query query = entityManager.createQuery("FROM Book WHERE name LIKE :nameFragment", Book.class);
+        query.setParameter("nameFragment", "%" + fragment + "%");
         return query.getResultList();
     }
 
-
-    public Book find(Author author) {
-        return entityManager.find(Book.class, author);
-    }
 
 
 //    public List<Book> findBookByAuthor(Author author) {

@@ -19,8 +19,6 @@ public class Book {
         this.releaseDate = releaseDate;
 
     }
-
-
     @Id
     @GeneratedValue
     private UUID id;
