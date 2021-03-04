@@ -42,25 +42,20 @@ public class EntryController {
 
     private void receiveInputAndAct() {
         Integer input = receiver.receiveInt();
-        boolean quit = false;
-        boolean forward = true;
-
-        while (!quit) {
-            switch (input) {
-                case 1:
-                    bookController.runlistAllBooks();
-                    break;
-                case 2:
-                    authorController.runlistAllAuthors();
-                    break;
-                case 3:
-                    bookController.runFindBook();
-                    break;
-                case 4:
-                    quit = true;
-                    break;
-            }
+        switch (input) {
+            case 1:
+                bookController.runlistAllBooks();
+                break;
+            case 2:
+                authorController.runlistAllAuthors();
+                break;
+            case 3:
+                bookController.runFindBook();
+                break;
+            case 4:
+                return;
         }
+        printMenu();
         receiveInputAndAct();
     }
 }

@@ -25,7 +25,7 @@ public class Book {
 
 //    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private List<Author> authors = new ArrayList<>();
-    @OneToOne
+    @OneToOne (cascade = {CascadeType.ALL})
     private Author author;
 
     @Column(nullable = false)
@@ -36,9 +36,9 @@ public class Book {
 
     @Column(nullable = false)
     private Integer releaseDate;
-    @OneToOne
+    @OneToOne (cascade = {CascadeType.ALL})
     private BookBorrowing bookBorrowing;
-    @OneToOne
+    @OneToOne (cascade = {CascadeType.ALL})
     private Reservation reservation;
 
 

@@ -19,8 +19,10 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
-    @ManyToMany
-    private List<Book> book = new ArrayList<>();
+    //@ManyToMany
+    //private List<Book> book = new ArrayList<>();
+    @OneToOne
+    private Book book;
 
     public Author(String name, String surname) {
         this.name = name;
@@ -51,11 +53,11 @@ public class Author {
         this.surname = surname;
     }
 
-    public List<Book> getBook() {
+    public Book getBook() {
         return book;
     }
 
-    public void setBook(List<Book> book) {
+    public void setBook(Book book) {
         this.book = book;
     }
 

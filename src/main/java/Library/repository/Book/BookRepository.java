@@ -24,7 +24,7 @@ public class BookRepository extends AbstractRepository<Book,UUID> {
     }
 
     public List<Book> searchByNameFragment(String fragment) {
-        Query query = entityManager.createQuery("FROM Book WHERE name LIKE :nameFragment", Book.class);
+        Query query = entityManager.createQuery("FROM Book WHERE title LIKE :nameFragment", Book.class);
         query.setParameter("nameFragment", "%" + fragment + "%");
         return query.getResultList();
     }

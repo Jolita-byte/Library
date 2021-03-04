@@ -21,12 +21,16 @@ import javax.persistence.EntityManager;
 public class Project {
 
     public static final String HIBERNATE_CONFIGURATION = "hibernate.cfg.xml";
-
-    BookRepository bookRepository = new BookRepository(entityManager());
-    AuthorRepository authorRepository = new AuthorRepository(entityManager());
+    private EntityManager entityManager;
+    private BookRepository bookRepository;
+    private AuthorRepository authorRepository;
 
     public Project() {
-        constructEntryController(entityManager()).run();
+        entityManager = entityManager();
+        bookRepository = new BookRepository(entityManager);
+        authorRepository = new AuthorRepository(entityManager);
+        run1();
+        constructEntryController(entityManager).run();
     }
 
     private EntryController constructEntryController(EntityManager entityManager) {
@@ -54,18 +58,22 @@ public class Project {
 
     }
 
-    public void run() {
+    public void run1() {
         Author author1 = new Author("Levas", "Tolstojus");
         Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
+        bookRepository.save(book1);
 
         Author author2 = new Author("Džeromas Deividass", "Selindžeris");
         Book book2 = new Book(author2, "Rugiuose prie bedugnės", "Romanas", 1951);
+        bookRepository.save(book2);
 
         Author author3 = new Author("Džeromas Deividas", "Selindžeris");
         Book book3 = new Book(author3, "Rugiuose prie bedugnės", "Romanas", 1951);
+        bookRepository.save(book3);
 
         Author author4 = new Author("Katherine", " Paterson");
         Book book4 = new Book(author4, "Tiltas į terabitiją", "Romanas", 2018);
+        bookRepository.save(book4);
 
         Author authorMan = new Author("Tomas", "Manas");
         authorRepository.save(authorMan);
