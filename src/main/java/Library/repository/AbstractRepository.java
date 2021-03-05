@@ -16,7 +16,7 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
     }
 
     @Override
-    public T find(ID id) {
+   public T find(ID id) {
         return entityManager.find(entityClass, id);
     }
 
@@ -27,7 +27,8 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
         if (!isTransactionActive) {
             transaction.begin();
         }
-        entityManager.persist(entity);
+        //entityManager.persist(entity);
+         entityManager.merge(entity);
         if (!isTransactionActive) {
             transaction.commit();
         }

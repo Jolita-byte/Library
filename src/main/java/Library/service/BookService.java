@@ -23,4 +23,8 @@ public class BookService {
     public List<Book> searchByNameFragment(String fragment) {
         return bookRepository.searchByNameFragment(fragment);
     }
+
+    public void saveAllBooks(List<Book> books){
+        books.forEach(b -> bookRepository.save(b));
+    }
 }

@@ -29,7 +29,7 @@ public class Project {
         entityManager = entityManager();
         bookRepository = new BookRepository(entityManager);
         authorRepository = new AuthorRepository(entityManager);
-        run1();
+        //run1();
         constructEntryController(entityManager).run();
     }
 
