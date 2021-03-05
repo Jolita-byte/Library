@@ -1,9 +1,13 @@
-package Library.repository;
+package Library.utilities;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /***
      *
@@ -32,6 +36,15 @@ import java.text.SimpleDateFormat;
             return objectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
         }
 
+        public static String ListToPrettyJson(ArrayList<Object> objects) throws JsonProcessingException {
+            String jsonString = null;
+
+            for (Object object : objects) {
+                jsonString += toPrettyJson(object);
+            }
+            return jsonString;
+    }
+
 
     /**
          * Parses a JSON representation into a Java object instance
@@ -41,7 +54,7 @@ import java.text.SimpleDateFormat;
          * @return instance of the Class we pass, e.g. Person.class in second parameter will make this method return an instance of Person
          * @throws JsonProcessingException if parsing from JSON fails
          */
-        public static <T> T fromJson(String json, Class<T> clazz) throws JsonProcessingException {
+        public static <T> T[] fromJson(String json, Class<T[]> clazz) throws JsonProcessingException {
             return objectMapper().readValue(json, clazz);
         }
 

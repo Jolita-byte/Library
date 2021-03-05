@@ -11,12 +11,28 @@ import java.util.*;
 @Table(name = "books")
 public class Book {
 
+    public Book(Author author, String title, String genre, Integer releaseDate) {
+//        this.authors.add(author);
+        this.author = author;
+        this.title = title;
+        this.genre = genre;
+        this.releaseDate = releaseDate;
+
+    }
     @Id
     @GeneratedValue
     private UUID id;
 
+    //@OneToOne (cascade = {CascadeType.ALL})
+    //private Author author;
+  
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Author> authors = new HashSet<>();
+
+//    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<Author> authors = new ArrayList<>();
+
+
 
     @Column(nullable = false)
     private String title;
@@ -27,11 +43,16 @@ public class Book {
     @Column(nullable = false)
     private Integer releaseDate;
 
-    @OneToOne
+    @OneToOne (cascade = {CascadeType.ALL})
     private BookBorrowing bookBorrowing;
-
-    @OneToOne
+    
+    @OneToOne (cascade = {CascadeType.ALL})
     private Reservation reservation;
+
+
+//   public void addAuthor(Author author){
+//       authors.add(author);
+//   }
 
 
   //  private String language;
@@ -51,6 +72,7 @@ public class Book {
         this.genre = genre;
         this.releaseDate = releaseDate;
     }
+
 
     public Book(Set<Author> authors, String title) {
         this.authors = authors;
@@ -75,7 +97,14 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+
+   /* public Author getAuthor() {
+        return author;
     }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }*/
 
     public String getTitle() {
         return title;

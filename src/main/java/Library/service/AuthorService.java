@@ -6,10 +6,10 @@ import Library.repository.Author.AuthorRepository;
 import java.util.List;
 import java.util.Set;
 
+
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-
 
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
@@ -33,4 +33,10 @@ public class AuthorService {
     public List<Author> findAuthorsByKeyWord(String keyWord) {
         return authorRepository.searchByKeyWord(keyWord);
     }
+
+ /*   public List<Author> findAllAuthors() {
+        return authorRepository.findAll();
+    }*/
+
+
 }

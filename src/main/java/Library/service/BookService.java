@@ -3,7 +3,6 @@ package Library.service;
 import Library.entity.Author;
 import Library.entity.Book;
 import Library.repository.Book.BookRepository;
-
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final AuthorService authorService;
+
 
     public BookService(BookRepository bookRepository, AuthorService authorService) {
         this.bookRepository = bookRepository;
@@ -32,12 +32,15 @@ public class BookService {
         return bookRepository.searchByKeyWord(keyWord);
     }
 
-
     private void addBookToAuthors(Set<Author> authors, Book book) {
         authors.forEach(author -> {
             author.getBooks().add(book);
             authorService.updateAuthor(author);
         });
+    }
+
+    public void saveAllBooks(List<Book> books){
+        books.forEach(b -> bookRepository.save(b));
     }
 
 }

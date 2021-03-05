@@ -80,4 +80,13 @@ public class AuthorController implements Controller {
         authorService.findAllAuthors().forEach(author -> output.produce(author.toString()));
         output.produce("=======================================");
     }
+
+
+   // }
+
+    public void runlistAllAuthors() {
+        listAllAuthors();
+    }
+
+
 }

@@ -1,7 +1,8 @@
 package Library.entity;
 import javax.persistence.*;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "authors")
@@ -17,8 +18,14 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
+    //@OneToOne
+    //private Book book;
+  
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
+
+    public Author(){}
+
 
     public Author(String name, String surname) {
         this.name = name;
@@ -55,7 +62,14 @@ public class Author {
 
     public void setBook(List<Book> books) {
         this.books = books;
+
+   /* public Book getBook() {
+        return book;
     }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }*/
 
 
     @Override
