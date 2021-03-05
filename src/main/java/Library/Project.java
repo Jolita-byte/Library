@@ -4,15 +4,20 @@ package Library;
 import Library.controller.author.AuthorController;
 import Library.controller.book.BookController;
 import Library.controller.entry.EntryController;
+import Library.controller.reader.ReaderController;
 import Library.entity.*;
 import Library.repository.Author.AuthorRepository;
 import Library.repository.Book.BookRepository;
+import Library.repository.BookBorrowing.BookBorrowingRepository;
+import Library.repository.Reader.ReaderRepository;
+import Library.repository.Reservation.ReservationRepository;
 import Library.service.AuthorService;
 import Library.service.BookService;
-import Library.utilities.input.DefaultInputReceiver;
-import Library.utilities.input.InputReceiver;
-import Library.utilities.output.DefaultOutputProducer;
-import Library.utilities.output.OutputProducer;
+import Library.service.ReaderService;
+import Library.util.input.DefaultInputReceiver;
+import Library.util.input.InputReceiver;
+import Library.util.output.DefaultOutputProducer;
+import Library.util.output.OutputProducer;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -38,10 +43,12 @@ public class Project {
         OutputProducer output = new DefaultOutputProducer();
         AuthorService authorService = new AuthorService(new AuthorRepository(entityManager));
         BookService bookService = new BookService(new BookRepository(entityManager), authorService);
+        ReaderService readerService = new ReaderService(new ReaderRepository(entityManager));
 
         AuthorController authorController = new AuthorController(authorService, receiver, output);
         BookController bookController = new BookController(bookService, authorService, receiver, output);
-        return new EntryController(authorController, bookController, receiver, output);
+        ReaderController readerController = new ReaderController(readerService, receiver, output);
+        return new EntryController(authorController, bookController, readerController, receiver, output);
     }
 
     private EntityManager entityManager() {
@@ -104,17 +111,7 @@ public class Project {
 
     }
 
-    public void printAllBooks() {
-        System.out.println("--------------Visos knygos------------------");
-        System.out.println(bookRepository.findAll());
-
-    }
-
-    public void printAllAuthors() {
-        System.out.println("--------------Visi autoriai ------------------");
-        System.out.println(authorRepository.findAll());
-
-    }
 }
+
 
 

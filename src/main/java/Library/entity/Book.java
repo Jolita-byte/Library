@@ -23,10 +23,16 @@ public class Book {
     @GeneratedValue
     private UUID id;
 
+    //@OneToOne (cascade = {CascadeType.ALL})
+    //private Author author;
+  
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Author> authors = new HashSet<>();
+
 //    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private List<Author> authors = new ArrayList<>();
-    @OneToOne (cascade = {CascadeType.ALL})
-    private Author author;
+
+
 
     @Column(nullable = false)
     private String title;
@@ -36,8 +42,10 @@ public class Book {
 
     @Column(nullable = false)
     private Integer releaseDate;
+
     @OneToOne (cascade = {CascadeType.ALL})
     private BookBorrowing bookBorrowing;
+    
     @OneToOne (cascade = {CascadeType.ALL})
     private Reservation reservation;
 
@@ -53,12 +61,23 @@ public class Book {
   //  private String format;
 
 
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                    .withLocale(Locale.forLanguageTag("LT"))
-                    .withZone(ZoneId.systemDefault());
+//    private static final DateTimeFormatter FORMATTER =
+//            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+//                    .withLocale(Locale.forLanguageTag("LT"))
+//                    .withZone(ZoneId.systemDefault());
+
+    public Book(Set<Author> authors, String title, String genre, Integer releaseDate) {
+        this.authors = authors;
+        this.title = title;
+        this.genre = genre;
+        this.releaseDate = releaseDate;
+    }
 
 
+    public Book(Set<Author> authors, String title) {
+        this.authors = authors;
+        this.title = title;
+    }
 
     public Book() {
 
@@ -72,13 +91,20 @@ public class Book {
         this.id = id;
     }
 
-    public Author getAuthor() {
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+
+   /* public Author getAuthor() {
         return author;
     }
 
     public void setAuthor(Author author) {
         this.author = author;
-    }
+    }*/
 
     public String getTitle() {
         return title;
@@ -124,7 +150,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "uuid=" + id +
-                ", author=" + author +
+                ", author=" + authors +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", releaseDate=" + releaseDate +

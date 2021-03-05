@@ -11,9 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
-public class BookRepository extends AbstractRepository<Book,UUID> {
+public class BookRepository extends AbstractRepository<Book, UUID> {
+
     public BookRepository(EntityManager entityManager) {
         super(entityManager, Book.class);
     }
@@ -23,12 +25,29 @@ public class BookRepository extends AbstractRepository<Book,UUID> {
         return entityManager.createQuery("FROM Book", Book.class).getResultList();
     }
 
-    public List<Book> searchByNameFragment(String fragment) {
+
+    public List<Book> findBookByTitle(Book title) {
+        Query query = entityManager.createQuery("FROM Book WHERE title = :title", Book.class);
+        query.setParameter("title", "%" + title + "%");
+        return query.getResultList();
+    }
+
+    public Book find(Author author) {
+        return entityManager.find(Book.class, author);
+    }
+
+    public List<Book> findBookByAuthor(Author author) {
+        Query query = entityManager.createQuery("FROM Book WHERE author = :author", Book.class);
+        query.setParameter("author", "%" + author + "%");
+        return query.getResultList();
+    }
+
+  /*  public List<Book> searchByNameFragment(String fragment) {
         Query query = entityManager.createQuery("FROM Book WHERE title LIKE :nameFragment", Book.class);
         query.setParameter("nameFragment", "%" + fragment + "%");
         return query.getResultList();
     }
-
+*/
 
 
 //    public List<Book> findBookByAuthor(Author author) {
@@ -37,7 +56,12 @@ public class BookRepository extends AbstractRepository<Book,UUID> {
 //                   return query.getResultList();
 //    }
 
-
+    public List<Book> searchByKeyWord(String keyWord) {
+        Query query = entityManager.createQuery("FROM Author WHERE title LIKE :keyWord" +
+                                                " OR author LIKE :keyWord", Book.class);
+        query.setParameter("keyWord", "%" + keyWord + "%");
+        return query.getResultList();
+    }
 }
 
 

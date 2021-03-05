@@ -4,6 +4,8 @@ import Library.entity.Author;
 import Library.repository.Author.AuthorRepository;
 
 import java.util.List;
+import java.util.Set;
+
 
 public class AuthorService {
 
@@ -13,17 +15,28 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Author saveNewAuthor(String firstName, String lastName) {
-        Author author = new Author(firstName, lastName);
+    public Author saveNewAuthor(String name, String surname) {
+        Author author = new Author(name, surname);
         authorRepository.save(author);
         return author;
     }
 
-    public List<Author> findAllAuthors() {
-        return authorRepository.findAll();
+    public Set<Author> findAllAuthors() {
+        return (Set<Author>) authorRepository.findAll();
     }
 
-//    public List<Author> findAuthorsByNameFragment(String fragment) {
-////        return authorRepository.searchByNameFragment(fragment);
-//    }
+    public Author updateAuthor(Author author) {
+        authorRepository.save(author);
+        return author;
+    }
+
+    public List<Author> findAuthorsByKeyWord(String keyWord) {
+        return authorRepository.searchByKeyWord(keyWord);
+    }
+
+ /*   public List<Author> findAllAuthors() {
+        return authorRepository.findAll();
+    }*/
+
+
 }
