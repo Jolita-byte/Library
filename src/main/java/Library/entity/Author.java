@@ -24,6 +24,8 @@ public class Author {
     @OneToOne
     private Book book;
 
+    public Author(){}
+
     public Author(String name, String surname) {
         this.name = name;
         this.surname = surname;
