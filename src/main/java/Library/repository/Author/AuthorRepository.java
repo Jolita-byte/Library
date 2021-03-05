@@ -6,6 +6,7 @@ import Library.repository.AbstractRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class AuthorRepository extends AbstractRepository<Author, UUID> {
@@ -16,7 +17,7 @@ public class AuthorRepository extends AbstractRepository<Author, UUID> {
 
     @Override
     public List<Author> findAll() {
-        return entityManager.createQuery("FROM Author", Author.class).getResultList();
+        return  entityManager.createQuery("FROM Author", Author.class).getResultList();
     }
 
     public List<Author> searchByKeyWord(String keyWord) {

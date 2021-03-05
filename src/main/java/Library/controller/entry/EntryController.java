@@ -8,20 +8,22 @@ import Library.utilities.input.InputReceiver;
 import Library.utilities.output.OutputProducer;
 
 public class EntryController implements Controller {
-    private final Controller authorController;
-    private final Controller bookController;
+    private final AuthorController authorController;
+    private final BookController bookController;
     private final Controller readerController;
     private final InputReceiver receiver;
     private final OutputProducer output;
 
-    public EntryController(Controller authorController,
-                           Controller bookController,
+    public EntryController(AuthorController authorController,
+                           BookController bookController,
                            Controller readerController,
                            InputReceiver receiver,
                            OutputProducer output) {
         this.authorController = authorController;
         this.bookController = bookController;
         this.readerController = readerController;
+        this.receiver = receiver;
+        this.output = output;}
 
 /*public class EntryController {
 
@@ -38,19 +40,42 @@ public class EntryController implements Controller {
     }*/
 
     @Override
+    /*public void run() {
+        printMenu();
+        receiveInputAndAct();
+    }*/
+
     public void run() {
         output.produce("===== Welcome to Library! =====");
         printInstructions();
-        receiveInputAndAct();
+        receiveInputAndAct2();
+    }
+
+    public static void printMenu() {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Welcome to the library!");
+        System.out.println("Search for a desired book of yours:");
+        System.out.println(
+
+                "1. Import the list of all books from file. \n" +
+                "2. See the list of all books. \n" +
+                "3. Write the list of all books to file. \n" +
+                "4. See the list of all authors. \n" +
+                "5. Find the book according criterias. \n" +
+                "6. Quit.");
     }
     private void printInstructions() {
         output.produce("A - Author management");
         output.produce("B - Book management");
         output.produce("R - Reader management");
+        output.produce("I - Import from file");
+        output.produce("E - Export to file");
         output.produce("X - Exit");
     }
 
-    private void receiveInputAndAct() {
+    private void receiveInputAndAct2() {
         String input = receiver.receiveLine().toUpperCase();
         switch (input) {
             case "A": {
@@ -65,6 +90,12 @@ public class EntryController implements Controller {
                 readerController.run();
                 break;
             }
+            case "I":
+                bookController.runAllBooksFromFile();
+                break;
+            case "E":
+                bookController.runAllBooksToFile();
+                break;
             case "X": {
                 return;
             }
@@ -75,27 +106,9 @@ public class EntryController implements Controller {
         }
         receiveInputAndAct();
     }
-}
 
- /*   public void run() {
-        printMenu();
-        receiveInputAndAct();
-    }*/
 
-    public static void printMenu() {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("Welcome to the library!");
-        System.out.println("Search for a desired book of yours:");
-        System.out.println("Find: \n" +
-                "1. Import the list of all books from file. \n" +
-                "2. See the list of all books. \n" +
-                "3. Write the list of all books to file. \n" +
-                "4. See the list of all authors. \n" +
-                "5. Find the book according criterias. \n" +
-                "6. Quit.");
-    }
+
 
     private void receiveInputAndAct() {
         Integer input = receiver.receiveInt();

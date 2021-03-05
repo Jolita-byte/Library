@@ -14,10 +14,10 @@ import Library.repository.Reservation.ReservationRepository;
 import Library.service.AuthorService;
 import Library.service.BookService;
 import Library.service.ReaderService;
-import Library.util.input.DefaultInputReceiver;
-import Library.util.input.InputReceiver;
-import Library.util.output.DefaultOutputProducer;
-import Library.util.output.OutputProducer;
+import Library.utilities.input.DefaultInputReceiver;
+import Library.utilities.input.InputReceiver;
+import Library.utilities.output.DefaultOutputProducer;
+import Library.utilities.output.OutputProducer;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -66,6 +66,9 @@ public class Project {
     }
 
     public void run1() {
+
+/*
+
         Author author1 = new Author("Levas", "Tolstojus");
         Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
         bookRepository.save(book1);
@@ -107,6 +110,7 @@ public class Project {
         bookRepository.save(book1000);
         Book bookGranto = new Book(authorVernas, "Kapitono Granto vaikai", "nuotykiu", 1850);
         bookRepository.save(bookGranto);
+*/
 
 
     }

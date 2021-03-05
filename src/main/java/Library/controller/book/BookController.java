@@ -71,11 +71,7 @@ public class BookController implements Controller {
         receiveInputAndAct();
     }
 
-    private void listAllBooks() {
-        output.produce("============== All authors ================");
-        bookService.findAllBooks().forEach(book -> output.produce(book.toString()));
-        output.produce("===========================================");
-    }
+
 
     private void findBook() {
         output.produce("Enter to fragment to search by");
@@ -86,19 +82,19 @@ public class BookController implements Controller {
 
     private void createNewBook() {
         output.produce("Authors (enter author numbers, separated by commas):");
-        Set<Author> authors = getAuthorsFromInput();
+        List<Author> authors = getAuthorsFromInput();
         output.produce("Title of the book:");
         String title = receiver.receiveLine();
         output.produce("Genre of the book: ");
         String genre = receiver.receiveLine();
         output.produce("Year of release of the book: ");
         Integer releaseDate = Integer.parseInt(receiver.receiveLine());
-        bookService.saveNewBook( authors, title, genre, releaseDate);
+        bookService.saveNewBook(authors, title, genre, releaseDate);
         output.produce("New author saved successfully!");
     }
 
-    private Set<Author> getAuthorsFromInput() {
-        Set<Author> allAuthors = authorService.findAllAuthors();
+    private List<Author> getAuthorsFromInput() {
+        List<Author> allAuthors = authorService.findAllAuthors();
         allAuthors.forEach(author -> output.produce(author.toString()));
         Map<UUID, Author> authorMap = allAuthors.stream().collect(Collectors.toMap(Author::getId, author -> author));
         List<String> input = asList(receiver.receiveLine().split(","));
@@ -106,7 +102,7 @@ public class BookController implements Controller {
                 .map(value -> getAuthorFromMap(value, authorMap))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     private Optional<Author> getAuthorFromMap(String input, Map<UUID, Author> authorMap) {
@@ -123,7 +119,6 @@ public class BookController implements Controller {
         return Optional.ofNullable(author);
     }
 
-    }
 
     public void runAllBooksFromFile(){
         allBooksFromFile();
@@ -140,6 +135,7 @@ public class BookController implements Controller {
     public void runFindBook() {
         findBook();
     }
+
 
     private void listAllBooks() {
         output.produce("==== All books ====");
@@ -177,12 +173,12 @@ public class BookController implements Controller {
 
 
 
-    private void findBook() {
+/*    private void findBook() {
         output.produce("Enter to fragment to search by");
         List<Book> books = bookService.searchByNameFragment(receiver.receiveString());
         output.produce("Found books:");
         books.forEach(book -> output.produce(book.toString()));
-    }
+    }*/
 
 
 }

@@ -17,10 +17,10 @@ public class BookService {
         this.authorService = authorService;
     }
 
-    public Book saveNewBook(Set<Author> authors, String title, String genre, Integer releaseDate) {
+    public Book saveNewBook(List<Author> authors, String title, String genre, Integer releaseDate) {
         Book book = new Book(authors, title, genre, releaseDate);
         bookRepository.save(book);
-        addBookToAuthors(authors, book);
+        //addBookToAuthors(author, book);
         return book;
     }
 
@@ -32,12 +32,12 @@ public class BookService {
         return bookRepository.searchByKeyWord(keyWord);
     }
 
-    private void addBookToAuthors(Set<Author> authors, Book book) {
+/*    private void addBookToAuthors(List<Author> authors, Book book) {
         authors.forEach(author -> {
             author.getBooks().add(book);
             authorService.updateAuthor(author);
         });
-    }
+    }*/
 
     public void saveAllBooks(List<Book> books){
         books.forEach(b -> bookRepository.save(b));
