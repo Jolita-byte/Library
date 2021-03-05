@@ -40,7 +40,7 @@ class AuthorRepositoryTest {
         //author = new Author("Jonas", "Jonaitis");
         authorRepository.save(author);
 
-        then(entityManager).should().persist(author);
+        then(entityManager).should().merge(author);
     }
 
  /*   @Test
