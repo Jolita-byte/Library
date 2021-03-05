@@ -104,7 +104,7 @@ public class EntryController implements Controller {
                 printInstructions();
             }
         }
-        receiveInputAndAct();
+        receiveInputAndAct2();
     }
 
 
