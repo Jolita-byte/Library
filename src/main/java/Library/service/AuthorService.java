@@ -4,6 +4,7 @@ import Library.entity.Author;
 import Library.repository.Author.AuthorRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public class AuthorService {
 
@@ -20,8 +21,8 @@ public class AuthorService {
         return author;
     }
 
-    public List<Author> findAllAuthors() {
-        return authorRepository.findAll();
+    public Set<Author> findAllAuthors() {
+        return (Set<Author>) authorRepository.findAll();
     }
 
     public Author updateAuthor(Author author) {
@@ -29,7 +30,7 @@ public class AuthorService {
         return author;
     }
 
-    public List<Author> findAuthorsByKeyword(String keyWord) {
+    public List<Author> findAuthorsByKeyWord(String keyWord) {
         return authorRepository.searchByKeyWord(keyWord);
     }
 }

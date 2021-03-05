@@ -16,7 +16,7 @@ public class Book {
     private UUID id;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Author> authors = new ArrayList<>();
+    private Set<Author> authors = new HashSet<>();
 
     @Column(nullable = false)
     private String title;
@@ -45,14 +45,14 @@ public class Book {
 //                    .withLocale(Locale.forLanguageTag("LT"))
 //                    .withZone(ZoneId.systemDefault());
 
-    public Book(List<Author> authors, String title, String genre, Integer releaseDate) {
+    public Book(Set<Author> authors, String title, String genre, Integer releaseDate) {
         this.authors = authors;
         this.title = title;
         this.genre = genre;
         this.releaseDate = releaseDate;
     }
 
-    public Book(List<Author> authors, String title) {
+    public Book(Set<Author> authors, String title) {
         this.authors = authors;
         this.title = title;
     }
@@ -69,11 +69,11 @@ public class Book {
         this.id = id;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 

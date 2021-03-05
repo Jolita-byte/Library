@@ -17,8 +17,8 @@ public class BookService {
         this.authorService = authorService;
     }
 
-    public Book saveNewBook(List<Author> authors, String title) {
-        Book book = new Book(authors, title);
+    public Book saveNewBook(Set<Author> authors, String title, String genre, Integer releaseDate) {
+        Book book = new Book(authors, title, genre, releaseDate);
         bookRepository.save(book);
         addBookToAuthors(authors, book);
         return book;
@@ -33,7 +33,7 @@ public class BookService {
     }
 
 
-    private void addBookToAuthors(List<Author> authors, Book book) {
+    private void addBookToAuthors(Set<Author> authors, Book book) {
         authors.forEach(author -> {
             author.getBooks().add(book);
             authorService.updateAuthor(author);

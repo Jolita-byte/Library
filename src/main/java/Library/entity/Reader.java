@@ -22,14 +22,19 @@ public class Reader {
     @Id
     @GeneratedValue()
     private UUID id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String surname;
+
     @Column(nullable = false)
     private String email;
+
     @Column(nullable = false)
     private String phoneNumber;
+
     @Column(nullable = false)
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -37,8 +42,11 @@ public class Reader {
     private LocalDate activeSince;
     @OneToMany
     private List<Reservation> reservation;
+
     @OneToMany
     private List<BookBorrowing> bookBorrowings;
+
+    public Reader() {}
 
     public Reader(String name, String surname, String email, String phoneNumber, LocalDate activeSince) {
         this.name = name;

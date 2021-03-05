@@ -1,6 +1,10 @@
 package Library;
 
 
+import Library.controller.author.AuthorController;
+import Library.controller.book.BookController;
+import Library.controller.entry.EntryController;
+import Library.controller.reader.ReaderController;
 import Library.entity.*;
 import Library.repository.Author.AuthorRepository;
 import Library.repository.Book.BookRepository;
@@ -9,6 +13,11 @@ import Library.repository.Reader.ReaderRepository;
 import Library.repository.Reservation.ReservationRepository;
 import Library.service.AuthorService;
 import Library.service.BookService;
+import Library.service.ReaderService;
+import Library.util.input.DefaultInputReceiver;
+import Library.util.input.InputReceiver;
+import Library.util.output.DefaultOutputProducer;
+import Library.util.output.OutputProducer;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -19,16 +28,28 @@ import java.util.List;
 
 public class Project {
 
-    private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
-    private final ReaderRepository readerRepository;
-    private final ReservationRepository reservationRepository;
-    private final BookBorrowingRepository bookBorrowingRepository;
-
+    public static final String HIBERNATE_CONFIGURATION = "hibernate.cfg.xml";
 
     public Project() {
+        constructEntryController(entityManager()).run();
+    }
+
+    private EntryController constructEntryController(EntityManager entityManager) {
+        InputReceiver receiver = new DefaultInputReceiver();
+        OutputProducer output = new DefaultOutputProducer();
+        AuthorService authorService = new AuthorService(new AuthorRepository(entityManager));
+        BookService bookService = new BookService(new BookRepository(entityManager), authorService);
+        ReaderService readerService = new ReaderService(new ReaderRepository(entityManager));
+
+        AuthorController authorController = new AuthorController(authorService, receiver, output);
+        BookController bookController = new BookController(bookService, authorService, receiver, output);
+        ReaderController readerController = new ReaderController(readerService, receiver, output);
+        return new EntryController(authorController, bookController, readerController, receiver, output);
+    }
+
+    private EntityManager entityManager() {
         SessionFactory sessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure(HIBERNATE_CONFIGURATION)
                 .addAnnotatedClass(Author.class)
                 .addAnnotatedClass(Book.class)
                 .addAnnotatedClass(Reader.class)
@@ -36,24 +57,47 @@ public class Project {
                 .addAnnotatedClass(BookBorrowing.class)
                 .buildSessionFactory();
 
-        EntityManager entityManager = sessionFactory.createEntityManager();
-
-        authorRepository = new AuthorRepository(entityManager);
-        bookRepository = new BookRepository(entityManager);
-        readerRepository = new ReaderRepository(entityManager);
-        reservationRepository = new ReservationRepository(entityManager);
-        bookBorrowingRepository = new BookBorrowingRepository(entityManager);
-
-        LocalDate date1 = LocalDate.of(2021, 02,05);
-        date1.plusDays(10);
-
-        AuthorService authorService = new AuthorService(new AuthorRepository(entityManager));
-        BookService bookService = new BookService(new BookRepository(entityManager), authorService);
-
+        return sessionFactory.createEntityManager();
     }
-    public void run() {
+}
 
-     //Author author1 = new Author("Levas", "Tolstojus");
+
+//
+//    private final AuthorRepository authorRepository;
+//    private final BookRepository bookRepository;
+//    private final ReaderRepository readerRepository;
+//    private final ReservationRepository reservationRepository;
+//    private final BookBorrowingRepository bookBorrowingRepository;
+
+
+   // public Project() {
+//        SessionFactory sessionFactory = new Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(Author.class)
+//                .addAnnotatedClass(Book.class)
+//                .addAnnotatedClass(Reader.class)
+//                .addAnnotatedClass(Reservation.class)
+//                .addAnnotatedClass(BookBorrowing.class)
+//                .buildSessionFactory();
+//
+//        EntityManager entityManager = sessionFactory.createEntityManager();
+
+// /*       authorRepository = new AuthorRepository(entityManager);
+//        bookRepository = new BookRepository(entityManager);
+//        readerRepository = new ReaderRepository(entityManager);
+//        reservationRepository = new ReservationRepository(entityManager);
+//        bookBorrowingRepository = new BookBorrowingRepository(entityManager);
+//
+//        LocalDate date1 = LocalDate.of(2021, 02,05);
+//        date1.plusDays(10);
+//
+//        AuthorService authorService = new AuthorService(new AuthorRepository(entityManager));
+//        BookService bookService = new BookService(new BookRepository(entityManager), authorService);
+//
+//    }
+//    public void run() {
+//
+//     //Author author1 = new Author("Levas", "Tolstojus");
    //    Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
 //
 //        Author author2 = new Author("Džeromas Deividass", "Selindžeris");
@@ -65,8 +109,8 @@ public class Project {
 //        Author author4 = new Author("Katherine", " Paterson");
 //        Book book4 = new Book(author4, "Tiltas į terabitiją", "Romanas", 2018);
 
-       Author authorMan = new Author("Tomas","Manas");
-        authorRepository.save(authorMan);
+      // Author authorMan = new Author("Tomas","Manas");
+    //    authorRepository.save(authorMan);
 //
   //     Book bookKazkoks = new Book(authorMan, "Kazkoks","mistika", 1912);
  //      bookRepository.save(bookKazkoks);
@@ -103,14 +147,12 @@ public class Project {
 //      bookRepository.findBookByAuthor(authorLindgren);
 //      bookRepository.findBookByTitle(bookPepe);
 
-
-    }
-
-    public void print() {
-
-       // book.forEach(System.out::println);
-       // List<Book> books = bookRepository.findAll();
-   //System.out.println(bookKazkoks );
-    }
-
-}
+//
+//    }
+//    public void print() {
+//
+//       // book.forEach(System.out::println);
+//       // List<Book> books = bookRepository.findAll();
+//   //System.out.println(bookKazkoks );
+//    }
+//}
