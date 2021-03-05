@@ -11,14 +11,6 @@ import java.util.*;
 @Table(name = "books")
 public class Book {
 
-    public Book(Author author, String title, String genre, Integer releaseDate) {
-//        this.authors.add(author);
-        this.author = author;
-        this.title = title;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-
-    }
     @Id
     @GeneratedValue
     private UUID id;
@@ -27,12 +19,10 @@ public class Book {
     //private Author author;
   
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Author> authors = new HashSet<>();
+    private List<Author> authors = new ArrayList<>();
 
-//    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    private List<Author> authors = new ArrayList<>();
-
-
+    //@ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //private List<Author> authors = new ArrayList<>();
 
     @Column(nullable = false)
     private String title;
@@ -66,7 +56,7 @@ public class Book {
 //                    .withLocale(Locale.forLanguageTag("LT"))
 //                    .withZone(ZoneId.systemDefault());
 
-    public Book(Set<Author> authors, String title, String genre, Integer releaseDate) {
+    public Book(List<Author> authors, String title, String genre, Integer releaseDate) {
         this.authors = authors;
         this.title = title;
         this.genre = genre;
@@ -74,7 +64,7 @@ public class Book {
     }
 
 
-    public Book(Set<Author> authors, String title) {
+    public Book(List<Author> authors, String title) {
         this.authors = authors;
         this.title = title;
     }
@@ -91,13 +81,13 @@ public class Book {
         this.id = id;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
-
+    }
    /* public Author getAuthor() {
         return author;
     }

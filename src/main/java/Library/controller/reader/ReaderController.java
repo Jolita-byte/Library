@@ -3,8 +3,8 @@ package Library.controller.reader;
 import Library.controller.Controller;
 import Library.entity.Reader;
 import Library.service.ReaderService;
-import Library.util.input.InputReceiver;
-import Library.util.output.OutputProducer;
+import Library.utilities.input.InputReceiver;
+import Library.utilities.output.OutputProducer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

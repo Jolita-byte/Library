@@ -21,8 +21,8 @@ public class AuthorService {
         return author;
     }
 
-    public Set<Author> findAllAuthors() {
-        return (Set<Author>) authorRepository.findAll();
+    public List<Author> findAllAuthors() {
+        return authorRepository.findAll();
     }
 
     public Author updateAuthor(Author author) {

@@ -4,6 +4,5 @@ public interface InputReceiver {
 
     Integer receiveInt();
 
-    String receiveString();
-
+    String receiveLine();
 }
