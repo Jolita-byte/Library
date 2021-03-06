@@ -85,12 +85,22 @@ public class BookController implements Controller {
         List<Author> authors = getAuthorsFromInput();
         output.produce("Title of the book:");
         String title = receiver.receiveLine();
+        title = checkStringIsEmptyNoSpaceNotNull(title, " title of the book");
         output.produce("Genre of the book: ");
         String genre = receiver.receiveLine();
+        genre = checkStringIsEmptyNoSpaceNotNull(title, " genre of the book");
         output.produce("Year of release of the book: ");
         Integer releaseDate = Integer.parseInt(receiver.receiveLine());
         bookService.saveNewBook(authors, title, genre, releaseDate);
         output.produce("New author saved successfully!");
+    }
+
+    private String checkStringIsEmptyNoSpaceNotNull(String name, String s) {
+        while (name == null || name.isEmpty() || name.trim().equals("")) {
+            System.out.println("Please enter" + s);
+            name = receiver.receiveLine();
+        }
+        return name;
     }
 
     private List<Author> getAuthorsFromInput() {
