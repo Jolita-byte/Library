@@ -18,9 +18,6 @@ public class Author {
     @Column(nullable = false)
     private String surname;
 
-    //@OneToOne
-    //private Book book;
-  
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
@@ -36,10 +33,6 @@ public class Author {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -48,29 +41,6 @@ public class Author {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBook(List<Book> books) {
-        this.books = books;
-    }
-
-   /* public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }*/
 
 
     @Override

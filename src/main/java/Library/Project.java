@@ -6,11 +6,9 @@ import Library.controller.book.BookController;
 import Library.controller.entry.EntryController;
 import Library.controller.reader.ReaderController;
 import Library.entity.*;
-import Library.repository.Author.AuthorRepository;
-import Library.repository.Book.BookRepository;
-import Library.repository.BookBorrowing.BookBorrowingRepository;
-import Library.repository.Reader.ReaderRepository;
-import Library.repository.Reservation.ReservationRepository;
+import Library.repository.author.AuthorRepository;
+import Library.repository.book.BookRepository;
+import Library.repository.reader.ReaderRepository;
 import Library.service.AuthorService;
 import Library.service.BookService;
 import Library.service.ReaderService;
@@ -47,6 +45,7 @@ public class Project {
         BookService bookService = new BookService(new BookRepository(entityManager), authorService);
         ReaderService readerService = new ReaderService(new ReaderRepository(entityManager));
 
+
         AuthorController authorController = new AuthorController(authorService, receiver, output);
         BookController bookController = new BookController(bookService, authorService, receiver, output);
         ReaderController readerController = new ReaderController(readerService, receiver, output);
@@ -67,7 +66,7 @@ public class Project {
 
     }
 
-    public void run1() {
+    public void initialData() {
         List<Author> authors1 = new ArrayList<>();
         Author author11 = new Author("Levas", "Tolstojus");
         Author author12 = new Author("Levas2", "Tolstojus2");

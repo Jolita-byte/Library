@@ -1,4 +1,4 @@
-package Library.repository.Author;
+package Library.repository.author;
 
 import Library.entity.*;
 import org.hibernate.Transaction;

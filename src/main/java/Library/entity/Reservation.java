@@ -2,21 +2,13 @@ package Library.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
 import java.util.UUID;
 
 @Entity
 @Table(name = "reservations")
 public class Reservation {
 
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                    .withLocale(Locale.forLanguageTag("LT"))
-                    .withZone(ZoneId.systemDefault());
 
     @Id
     @GeneratedValue()
@@ -29,15 +21,9 @@ public class Reservation {
     private Reader reader;
 
     @Column(nullable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate beginDate;
 
     @Column(nullable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 
     public Reservation(Book book, Reader reader, LocalDate beginDate) {
@@ -93,8 +79,8 @@ public class Reservation {
                 "id=" + id +
                 ", book=" + book +
                 ", reader=" + reader +
-                ", beginDate=" + FORMATTER.format(beginDate) +
-                ", endDate=" + FORMATTER.format(endDate)+
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
                 '}';
     }
 }

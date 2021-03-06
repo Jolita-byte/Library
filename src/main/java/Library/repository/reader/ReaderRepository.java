@@ -1,7 +1,5 @@
-package Library.repository.Reader;
+package Library.repository.reader;
 
-import Library.entity.Author;
-import Library.entity.Book;
 import Library.entity.Reader;
 import Library.repository.AbstractRepository;
 

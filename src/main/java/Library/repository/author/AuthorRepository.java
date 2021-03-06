@@ -1,4 +1,4 @@
-package Library.repository.Author;
+package Library.repository.author;
 
 import Library.entity.Author;
 import Library.repository.AbstractRepository;
@@ -6,7 +6,6 @@ import Library.repository.AbstractRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class AuthorRepository extends AbstractRepository<Author, UUID> {
