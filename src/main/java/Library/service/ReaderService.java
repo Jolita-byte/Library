@@ -2,7 +2,7 @@ package Library.service;
 
 
 import Library.entity.Reader;
-import Library.repository.Reader.ReaderRepository;
+import Library.repository.reader.ReaderRepository;
 
 import java.time.LocalDate;
 import java.util.List;

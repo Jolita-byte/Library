@@ -15,10 +15,6 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
         this.entityClass = entityClass;
     }
 
-    @Override
-   public T find(ID id) {
-        return entityManager.find(entityClass, id);
-    }
 
      @Override
     public void save(T entity) {
@@ -27,15 +23,12 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
         if (!isTransactionActive) {
             transaction.begin();
         }
-        //entityManager.persist(entity);
+
          entityManager.merge(entity);
         if (!isTransactionActive) {
             transaction.commit();
         }
     }
 
-    @Override
-    public void delete(T entity) {
-        entityManager.remove(entity);
-    }
+
 }

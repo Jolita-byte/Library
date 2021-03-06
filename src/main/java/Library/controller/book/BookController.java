@@ -4,6 +4,8 @@ import Library.controller.Controller;
 import java.util.*;
 import java.util.stream.Collectors;
 import static java.util.Arrays.asList;
+
+import Library.controller.entry.EntryController;
 import Library.entity.Author;
 import Library.entity.Book;
 import Library.utilities.FileUtils;
@@ -19,12 +21,16 @@ import java.util.List;
 
 public class BookController implements Controller {
 
+
     private final BookService bookService;
     private final AuthorService authorService;
     private final InputReceiver receiver;
     private final OutputProducer output;
 
-    public BookController(BookService bookService, AuthorService authorService, InputReceiver receiver, OutputProducer output) {
+    public BookController(BookService bookService,
+                          AuthorService authorService,
+                          InputReceiver receiver,
+                          OutputProducer output) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.receiver = receiver;
@@ -66,6 +72,7 @@ public class BookController implements Controller {
             default: {
                 output.produce("Action unrecognised.");
                 printInstructions();
+
             }
         }
         receiveInputAndAct();
@@ -108,7 +115,7 @@ public class BookController implements Controller {
     private Optional<Author> getAuthorFromMap(String input, Map<UUID, Author> authorMap) {
         Author author = null;
         try {
-            long numericValue = Long.parseLong(input);
+            UUID numericValue = UUID.fromString(input);
             author = authorMap.get(numericValue);
             if (author == null) {
                 output.produce("Author could not be found by given id: " + numericValue);
@@ -124,18 +131,9 @@ public class BookController implements Controller {
         allBooksFromFile();
     }
 
-    public void runlistAllBooks() {
-        listAllBooks();
-    }
-
     public void runAllBooksToFile() {
         allBooksToFile();
     }
-
-    public void runFindBook() {
-        findBook();
-    }
-
 
     private void listAllBooks() {
         output.produce("==== All books ====");
@@ -170,8 +168,6 @@ public class BookController implements Controller {
         } else output.produce("\u001B[45m" + "There is no books");
         output.produce("\033[0m");
     }
-
-
 
 /*    private void findBook() {
         output.produce("Enter to fragment to search by");

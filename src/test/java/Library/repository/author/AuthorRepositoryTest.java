@@ -1,13 +1,11 @@
-package Library.repository.Author;
+package Library.repository.author;
 
 import Library.entity.*;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityManager;
@@ -15,7 +13,6 @@ import javax.persistence.EntityManager;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static java.util.Collections.singletonList;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorRepositoryTest {

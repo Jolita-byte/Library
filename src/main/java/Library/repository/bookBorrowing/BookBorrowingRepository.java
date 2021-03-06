@@ -1,4 +1,4 @@
-package Library.repository.BookBorrowing;
+package Library.repository.bookBorrowing;
 
 import Library.entity.BookBorrowing;
 import Library.repository.AbstractRepository;

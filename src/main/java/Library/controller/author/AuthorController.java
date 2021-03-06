@@ -82,11 +82,4 @@ public class AuthorController implements Controller {
     }
 
 
-   // }
-
-    public void runlistAllAuthors() {
-        listAllAuthors();
-    }
-
-
 }

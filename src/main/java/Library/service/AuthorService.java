@@ -1,10 +1,9 @@
 package Library.service;
 
 import Library.entity.Author;
-import Library.repository.Author.AuthorRepository;
+import Library.repository.author.AuthorRepository;
 
 import java.util.List;
-import java.util.Set;
 
 
 public class AuthorService {
@@ -25,18 +24,13 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
-    public Author updateAuthor(Author author) {
-        authorRepository.save(author);
-        return author;
-    }
+
 
     public List<Author> findAuthorsByKeyWord(String keyWord) {
         return authorRepository.searchByKeyWord(keyWord);
     }
 
- /*   public List<Author> findAllAuthors() {
-        return authorRepository.findAll();
-    }*/
+
 
 
 }
