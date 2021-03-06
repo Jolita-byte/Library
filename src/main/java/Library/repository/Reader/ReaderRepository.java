@@ -17,7 +17,7 @@ public class ReaderRepository extends AbstractRepository<Reader, UUID> {
 
     @Override
     public List<Reader> findAll() {
-        return entityManager.createQuery("FROM Readers", Reader.class).getResultList();
+        return entityManager.createQuery("FROM Reader", Reader.class).getResultList();
     }
 
     public List<Reader> searchByKeyWord(String keyWord) {
