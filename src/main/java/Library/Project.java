@@ -22,6 +22,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Project {
 
@@ -66,52 +68,61 @@ public class Project {
     }
 
     public void run1() {
-
-/*
-
-        Author author1 = new Author("Levas", "Tolstojus");
-        Book book1 = new Book(author1, "Ana Karenina", "Romanas", 1877);
+        List<Author> authors1 = new ArrayList<>();
+        Author author11 = new Author("Levas", "Tolstojus");
+        Author author12 = new Author("Levas2", "Tolstojus2");
+        authors1.add(author11);
+        authors1.add(author12);
+        Book book1 = new Book(authors1, "Ana Karenina", "Romanas", 1877);
         bookRepository.save(book1);
 
-        Author author2 = new Author("Džeromas Deividass", "Selindžeris");
-        Book book2 = new Book(author2, "Rugiuose prie bedugnės", "Romanas", 1951);
+
+        List<Author> authors2 = new ArrayList<>();
+        authors2.add(new Author("Džeromas Deividass", "Selindžeris"));
+        Book book2 = new Book(authors2, "Rugiuose prie bedugnės", "Romanas", 1951);
         bookRepository.save(book2);
 
-        Author author3 = new Author("Džeromas Deividas", "Selindžeris");
-        Book book3 = new Book(author3, "Rugiuose prie bedugnės", "Romanas", 1951);
+        List<Author> authors3 = new ArrayList<>();
+        authors3.add(new Author("Džeromas Deividas", "Selindžeris"));
+        Book book3 = new Book(authors3, "Rugiuose prie bedugnės", "Romanas", 1951);
         bookRepository.save(book3);
 
-        Author author4 = new Author("Katherine", " Paterson");
-        Book book4 = new Book(author4, "Tiltas į terabitiją", "Romanas", 2018);
+
+        List<Author> authors4 = new ArrayList<>();
+        authors4.add(new Author("Katherine", " Paterson"));
+        Book book4 = new Book(authors4, "Tiltas į terabitiją", "Romanas", 2018);
         bookRepository.save(book4);
 
         Author authorMan = new Author("Tomas", "Manas");
         authorRepository.save(authorMan);
-
-        Book bookKazkoks = new Book(authorMan, "Kazkoks", "mistika", 1912);
+        List<Author> authors5 = new ArrayList<>();
+        authors5.add(authorMan);
+        Book bookKazkoks = new Book(authors5, "Kazkoks", "mistika", 1912);
         bookRepository.save(bookKazkoks);
 
         Author authorLindgren = new Author("Astrid", "Lindgren");
         authorRepository.save(authorLindgren);
-
-        Book bookKalis = new Book(authorLindgren, "Kalis Bliunkvistas", "vaikams", 1950);
+        List<Author> authors6 = new ArrayList<>();
+        authors6.add(authorLindgren);
+        Book bookKalis = new Book(authors6, "Kalis Bliunkvistas", "vaikams", 1950);
         bookRepository.save(bookKalis);
-        Book bookKalis2 = new Book(authorLindgren, "Kalis Bliunkvistas ir Rasmusas", "vaikams", 1960);
+        Book bookKalis2 = new Book(authors6, "Kalis Bliunkvistas ir Rasmusas", "vaikams", 1960);
         bookRepository.save(bookKalis2);
-        Book bookPepe = new Book(authorLindgren, "Pepe", "vaikams", 1965);
+        Book bookPepe = new Book(authors6, "Pepe", "vaikams", 1965);
         bookRepository.save(bookPepe);
-        Book bookRonja = new Book(authorLindgren, "Ronja plesiko dukte", "vaikams", 1970);
+        Book bookRonja = new Book(authors6, "Ronja plesiko dukte", "vaikams", 1970);
         bookRepository.save(bookRonja);
+
         Author authorVernas = new Author("Ziulis", "Vernas");
         authorRepository.save(authorVernas);
-        Book bookMenulis = new Book(authorVernas, "Kelione i Menuli", "nuotykiu", 1870);
+        List<Author> authors7 = new ArrayList<>();
+        authors7.add(authorVernas);
+        Book bookMenulis = new Book(authors7, "Kelione i Menuli", "nuotykiu", 1870);
         bookRepository.save(bookMenulis);
-        Book book1000 = new Book(authorVernas, "100 myliu po vandeniu", "nuotykiu", 1880);
+        Book book1000 = new Book(authors7, "100 myliu po vandeniu", "nuotykiu", 1880);
         bookRepository.save(book1000);
-        Book bookGranto = new Book(authorVernas, "Kapitono Granto vaikai", "nuotykiu", 1850);
+        Book bookGranto = new Book(authors7, "Kapitono Granto vaikai", "nuotykiu", 1850);
         bookRepository.save(bookGranto);
-*/
-
 
     }
 
