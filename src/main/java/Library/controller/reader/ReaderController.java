@@ -65,19 +65,31 @@ public class ReaderController implements Controller {
     private void createNewReader() {
         output.produce("First name of the new reader:");
         String name = receiver.receiveLine();
+        name = checkStringIsEmptyNoSpaceNotNull(name, " name of the new reader");
         output.produce("Surname of the new reader:");
         String surname = receiver.receiveLine();
+        surname = checkStringIsEmptyNoSpaceNotNull(surname, " surname of the new reader");
         output.produce("Email of the new reader:");
         String email = receiver.receiveLine();
+        email = checkStringIsEmptyNoSpaceNotNull(email, " email of the new reader");
         output.produce("Phone number of the new reader:");
         String phoneNumber = receiver.receiveLine();
+        phoneNumber = checkStringIsEmptyNoSpaceNotNull(phoneNumber, " phoneNumber of the new reader");
         output.produce("Active since: Enter a date (like month/day/year): ");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
         LocalDate activeSince = LocalDate.parse(receiver.receiveLine(), dateFormat);
         readerService.saveNewReader(name, surname, email, phoneNumber, activeSince);
         output.produce("New Reader saved successfully!");
-
     }
+
+    private String checkStringIsEmptyNoSpaceNotNull(String name, String s) {
+        while (name == null || name.isEmpty() || name.trim().equals("")) {
+            System.out.println("Please enter" + s);
+            name = receiver.receiveLine();
+        }
+        return name;
+    }
+
     private void findReader() {
         output.produce("Enter a key word to search by");
         List<Reader> readers = readerService.findReaderByKeyword(receiver.receiveLine());

@@ -30,7 +30,7 @@ public class AuthorController implements Controller {
         output.produce("L - List of authors");
         output.produce("F - Find author");
         output.produce("C - Create new author");
-        output.produce("B - Return");
+        output.produce("B - Back");
     }
 
     private void receiveInputAndAct() {
@@ -62,10 +62,20 @@ public class AuthorController implements Controller {
     private void createNewAuthor() {
         output.produce("First name of the new author:");
         String name = receiver.receiveLine();
+        name = checkStringIsEmptyNoSpaceNotNull(name, " name of the new author");
         output.produce("Surname of the new author:");
         String surname = receiver.receiveLine();
+        surname = checkStringIsEmptyNoSpaceNotNull(surname, " surname of the new author");
         authorService.saveNewAuthor(name, surname);
         output.produce("New author saved successfully!");
+    }
+
+    private String checkStringIsEmptyNoSpaceNotNull(String name, String s) {
+        while (name == null || name.isEmpty() || name.trim().equals("")) {
+            System.out.println("Please enter" + s);
+            name = receiver.receiveLine();
+        }
+        return name;
     }
 
     private void findAuthor() {

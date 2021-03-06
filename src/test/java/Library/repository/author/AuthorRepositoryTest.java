@@ -6,11 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import javax.persistence.EntityManager;
-
-
+import javax.persistence.TypedQuery;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -20,12 +19,6 @@ class AuthorRepositoryTest {
     private EntityManager entityManager;
 
     @Mock
-    private Transaction transaction;
-
-    //@Mock
-   // Query query;
-
-    @Mock
     private Author author;
 
     @InjectMocks
@@ -33,50 +26,42 @@ class AuthorRepositoryTest {
 
     @Test
     public void saveAuthor() {
+        Transaction transaction = Mockito.mock(Transaction.class);
         given(entityManager.getTransaction()).willReturn(transaction);
-        //author = new Author("Jonas", "Jonaitis");
+        given(transaction.isActive()).willReturn(false);
+
         authorRepository.save(author);
 
-        then(entityManager).should().persist(author);
+        then(entityManager).should().merge(author);
+        then(transaction).should().begin();
+        then(transaction).should().commit();
     }
 
- /*   @Test
-    public void findAllAuthors(){
-        query = Mockito.mock(Query.class);
+    @Test
+    public void findAllAuthors() {
+        TypedQuery typedQuery = Mockito.mock(TypedQuery.class);
+        given(entityManager.createQuery("FROM Author", Author.class)).willReturn(typedQuery);
+
         authorRepository.findAll();
 
-        then(entityManager).should().createQuery(query.toString(), Author.class).getResultList();
+        then(typedQuery).should().getResultList();
     }
 
-    public void findAuthorbyGivenID(){}*/
+    @Test
+    public void searchAuthorByKeyWord() {
+        TypedQuery typedQuery = Mockito.mock(TypedQuery.class);
+        given(entityManager.createQuery("FROM Author WHERE name LIKE :keyWord" +
+                " OR surname LIKE :keyWord", Author.class)).willReturn(typedQuery);
 
+        authorRepository.searchByKeyWord("Test");
 
-/*    @Test
-    public void searchesForReservations() {
-        defaultReservationDao.findReservationsFor(new Car(), new Date(), new Date()); // <- we call the method we are testing
+        then(typedQuery).should().getResultList();
+    }
 
-        then(entityManager).should().createQuery(); // <- Mockito's then method makes sure that when we called the method above, entityManager.find() was called
-    }*/
+    @Test
+    public void deleteAuthor() {
+        authorRepository.delete(author);
 
+        then(entityManager).should().remove(author);
+    }
 }
-
-/*    @Test
-    public void savesReservationList() {
-        defaultReservationDao.saveAll(singletonList(reservation)); // <- we call the method we are testing
-
-        then(entityManager).should().persist(singletonList(reservation)); // <- Mockito's then method makes sure that when we called the method above, entityManager.persist() was called
-    }*/
-
-/**
- * Third test for the implementation
- * Makes sure that if the find method is called, that the fake entity manager will call the find method to find the data needed
- * It does not care how it does it or what it does, it only needs to know that it was done.
- * In another implementation it might be needed to check that the result is equal to what was found, but in our implementation, it does not return the found value
- * it instead returns an empty list.
- */
-/*    @Test
-    public void searchesForReservations() {
-        defaultReservationDao.findReservationsFor(new Car(), new Date(), new Date()); // <- we call the method we are testing
-
-        then(entityManager).should().find(); // <- Mockito's then method makes sure that when we called the method above, entityManager.find() was called
-    }*/

@@ -30,5 +30,10 @@ public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID>
         }
     }
 
+    @Override
+    public void delete(T entity) {
+        entityManager.remove(entity);
+    }
+
 
 }
