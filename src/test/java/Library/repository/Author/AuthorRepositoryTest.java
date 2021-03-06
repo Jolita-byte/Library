@@ -19,9 +19,6 @@ class AuthorRepositoryTest {
     private EntityManager entityManager;
 
     @Mock
-    private Transaction transaction;
-
-    @Mock
     private Author author;
 
     @InjectMocks
@@ -29,6 +26,7 @@ class AuthorRepositoryTest {
 
     @Test
     public void saveAuthor() {
+        Transaction transaction = Mockito.mock(Transaction.class);
         given(entityManager.getTransaction()).willReturn(transaction);
         given(transaction.isActive()).willReturn(false);
 
